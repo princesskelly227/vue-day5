@@ -1,7 +1,7 @@
 <template>
   <div>
     <TodoHeader @add="addFn"></TodoHeader>
-    <TodoMain :list="list"></TodoMain>
+    <TodoMain :list="list" @del="delFn"></TodoMain>
     <TodoFooter></TodoFooter>
   </div>
 </template>
@@ -28,6 +28,7 @@ export default {
     TodoFooter,
   },
   methods: {
+    // 添加
     addFn(val) {
       const id = this.list[this.list.length - 1]
         ? this.list[this.list.length - 1].id + 1
@@ -37,6 +38,11 @@ export default {
         name: val,
         isDone: false,
       });
+    },
+    // 删除
+    delFn(id) {
+      const index = this.list.findIndex((ele) => ele.id == id);
+      this.list.splice(index, 1);
     },
   },
 };
