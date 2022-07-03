@@ -1,8 +1,8 @@
 <template>
   <div>
     <TodoHeader @add="addFn"></TodoHeader>
-    <TodoMain :list="list" @del="delFn"></TodoMain>
-    <TodoFooter :count="count"></TodoFooter>
+    <TodoMain :list="showList" @del="delFn"></TodoMain>
+    <TodoFooter :count="count" @checkAll="checkAllFn"></TodoFooter>
   </div>
 </template>
 
@@ -19,6 +19,7 @@ export default {
         { id: 101, name: '睡觉', isDone: false },
         { id: 102, name: '打豆豆', isDone: true },
       ],
+      getTrue: 'all',
     };
   },
   // 注册组件
@@ -45,10 +46,22 @@ export default {
       this.list.splice(index, 1);
     },
     //
+    checkAllFn(val) {
+      this.getTrue = val;
+    },
   },
   computed: {
     count() {
       return this.list.filter((ele) => !ele.isDone).length;
+    },
+    showList() {
+      if (this.getTrue == 'no') {
+        return this.list.filter((ele) => !ele.isDone);
+      } else if (this.getTrue == 'yes') {
+        return this.list.filter((ele) => ele.isDone);
+      } else {
+        return this.list;
+      }
     },
   },
 };
