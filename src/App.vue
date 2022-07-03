@@ -1,28 +1,27 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <TodoHeader></TodoHeader>
+    <TodoMain></TodoMain>
+    <TodoFooter></TodoFooter>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// 引入组件
+import TodoHeader from './components/TodoHeader.vue';
+import TodoMain from './components/TodoMain.vue';
+import TodoFooter from './components/TodoFooter.vue';
 export default {
-  name: 'App',
+  data() {
+    return {};
+  },
+  // 注册组件
   components: {
-    HelloWorld
-  }
-}
+    TodoHeader,
+    TodoMain,
+    TodoFooter,
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
