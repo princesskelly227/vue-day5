@@ -2,7 +2,11 @@
   <div>
     <TodoHeader @add="addFn"></TodoHeader>
     <TodoMain :list="showList" @del="delFn"></TodoMain>
-    <TodoFooter :count="count" @checkAll="checkAllFn"></TodoFooter>
+    <TodoFooter
+      :count="count"
+      @checkAll="checkAllFn"
+      @clear="clearFn"
+    ></TodoFooter>
   </div>
 </template>
 
@@ -48,6 +52,9 @@ export default {
     //
     checkAllFn(val) {
       this.getTrue = val;
+    },
+    clearFn() {
+      this.list.forEach((ele) => (ele.isDone = false));
     },
   },
   computed: {
