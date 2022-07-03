@@ -15,7 +15,9 @@
 export default {
   props: ['list'],
   methods: {
+    // 删除
     del(id) {
+      // 子传父
       this.$emit('del', id);
     },
   },
