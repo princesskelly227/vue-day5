@@ -18,11 +18,13 @@ import TodoFooter from './components/TodoFooter.vue';
 export default {
   data() {
     return {
-      list: [
-        { id: 100, name: '吃饭', isDone: true },
-        { id: 101, name: '睡觉', isDone: false },
-        { id: 102, name: '打豆豆', isDone: true },
-      ],
+      // list: [
+      //   { id: 100, name: '吃饭', isDone: true },
+      //   { id: 101, name: '睡觉', isDone: false },
+      //   { id: 102, name: '打豆豆', isDone: true },
+      // ],
+      list: JSON.parse(localStorage.getItem('list')) || [],
+
       getTrue: 'all',
     };
   },
@@ -71,6 +73,23 @@ export default {
       }
     },
   },
+  watch: {
+    list: {
+      deep: true,
+      handler(val) {
+        localStorage.setItem('list', JSON.stringify(val)) || [];
+      },
+    },
+  },
+  // watch: {
+  //   list: {
+  //     deep: true,
+  //     handler(val) {
+  //       localStorage.setItem('list', JSON.stringify(val || []));
+  //       // locationbar.setItem('list', JSON.stringify(val || []));
+  //     },
+  //   },
+  // },
 };
 </script>
 
