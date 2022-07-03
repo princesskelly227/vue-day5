@@ -1,9 +1,9 @@
 <template>
   <ul class="todo-list">
     <!-- completed: 完成的类名 -->
-    <li :class="{ completed: item.isDone }" v-for="item in list" :key="item.id">
+    <li :class="{completed : item.isDone}" v-for="item in list" :key="item.ud">
       <div class="view">
-        <input class="toggle" type="checkbox" />
+        <input class="toggle" type="checkbox" v-model="item.isDone" />
         <label>{{ item.name }}</label>
         <button class="destroy" @click="del(item.id)"></button>
       </div>
@@ -15,9 +15,7 @@
 export default {
   props: ['list'],
   methods: {
-    // 删除
     del(id) {
-      // 子传父
       this.$emit('del', id);
     },
   },
