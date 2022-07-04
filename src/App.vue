@@ -6,7 +6,7 @@
       </caption>
       <thead>
         <tr>
-          <th><input type="checkbox" /> <span>全选</span></th>
+          <th><input type="checkbox" v-model="isAll" /> <span>全选</span></th>
           <th>名称</th>
           <th>价格</th>
           <th>数量</th>
@@ -21,7 +21,7 @@
       <tfoot>
         <tr>
           <td>合计:</td>
-          <td colspan="5"></td>
+          <td colspan="5">总数:{{ num }} 总价{{ sum }}</td>
         </tr>
       </tfoot>
     </table>
@@ -63,6 +63,26 @@ export default {
   },
   components: {
     MyCar,
+  },
+  computed: {
+    num() {
+      return this.goodList.reduce((num, next) => {
+        return (num += next.num);
+      }, 0);
+    },
+    sum() {
+      return this.goodList.reduce((sum, next) => {
+        return (sum = sum + next.num * next.price);
+      }, 0);
+    },
+    isAll: {
+      get() {
+        return this.goodList.every((ele) => ele.checked);
+      },
+      set(checked) {
+        this.goodList.forEach((ele) => (ele.checked = checked));
+      },
+    },
   },
 };
 </script>

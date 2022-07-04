@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td><input type="checkbox" name="" id="" /></td>
+    <td><input type="checkbox" name="" id="" v-model="item.checked" /></td>
     <td>{{ item.name }}</td>
     <td>{{ item.price }}</td>
     <td>
