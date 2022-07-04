@@ -2,7 +2,17 @@
   <div>
     <!-- 把组件当普通标签用 -->
     <!-- <my-dog></my-dog> -->
-    <MyDog v-for="(item, index) in arr" :key="index" :item="item"></MyDog>
+    <MyDog
+      v-for="(item, index) in arr"
+      :key="index"
+      :item="item"
+      @getdog="getdogFn"
+    ></MyDog>
+    <hr />
+    <p>显示喜欢的狗:</p>
+    <ul>
+      <li v-for="(item, index) in loveArr" :key="index">{{ item }}</li>
+    </ul>
   </div>
 </template>
 
@@ -45,10 +55,16 @@ export default {
           dogName: '萨摩耶',
         },
       ],
+      loveArr: [],
     };
   },
   components: {
     MyDog,
+  },
+  methods: {
+    getdogFn(val) {
+      this.loveArr.push(val);
+    },
   },
 };
 </script>
