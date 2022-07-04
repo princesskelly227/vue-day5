@@ -1,15 +1,19 @@
 <template>
   <div class="my_div">
-    <img
-      src="https://scpic.chinaz.net/files/pic/pic9/202003/zzpic23514.jpg"
-      alt=""
-    />
-    <p>这是一个孤独可怜的狗</p>
+    <img :src="item.dogImgUrl" alt="" />
+    <p>{{ item.dogName }}</p>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    item: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+};
 </script>
 
 <style>
