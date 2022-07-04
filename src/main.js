@@ -5,6 +5,9 @@ Vue.config.productionTip = false
 
 import './assets/styles/base.css'
 import './assets/styles/index.css'
+import axios from 'axios'
+axios.defaults.baseURL='http://www.liulongbin.top:3006'
+Vue.prototype.$axios=axios
 
 new Vue({
   render: h => h(App),
