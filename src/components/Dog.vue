@@ -1,7 +1,7 @@
 <template>
-  <div class="my_div">
-    <img src= "https://scpic.chinaz.net/files/pic/pic9/202003/zzpic23514.jpg" alt=""/>
-    <p>这是一个孤独可怜的狗</p>
+  <div class ="my_div">
+    <img :src= "item.dogImgUrl" alt=""/>
+    <p @click="colorChange" :style="{background: colorStr}">{{item.dogName}}</p>
   </div>
 </template>
 
@@ -9,8 +9,21 @@
 export default {
     data() {
         return {
+          colorStr: ""
         }
     },
+    props:{
+        item: {
+            type: Object,
+            default: () => {{}}
+        }
+    },
+    methods: {
+      colorChange() {
+        this.colorStr = `rgb(${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)})`
+        this.$emit('love', this.item.dogName)
+      }
+    }
 }
 </script>
 
