@@ -6,6 +6,7 @@
       placeholder="搜索-书本名称"
       @keyup.enter="Searchbookup"
       v-model.trim="Searchbook"
+      value="Searchbook"
     /><br /><br />
     <table border="1" cellspacing="0" cellpadding="0">
       <thead>
@@ -22,7 +23,7 @@
           <td>{{ item.id }}</td>
           <td>{{ item.bookname }}</td>
           <td>{{ item.author }}</td>
-          <td>{{ item.author }}</td>
+          <td>{{ item.publisher }}</td>
           <td>
             <a href="javascript:" @click="delbook(item.id)">删除</a
             ><a href="javascript:" @click="detailbookfn(item.id)">详情</a>
@@ -34,20 +35,20 @@
     <input
       type="text"
       placeholder="书名"
-      v-model.trim="BookList.bookname"
-      value="BookList.bookname"
+      v-model.trim="AddDook.bookname"
+      value="AddDook.bookname"
     /><br /><br />
     <input
       type="text"
       placeholder="作者"
-      v-model.trim="BookList.author"
-      value="BookList.author"
+      v-model.trim="AddDook.author"
+      value="AddDook.author"
     /><br /><br />
     <input
       type="text"
       placeholder="出版社"
-      v-model.trim="BookList.publisher"
-      value="BookList.publisher"
+      v-model.trim="AddDook.publisher"
+      value="AddDook.publisher"
     /><br /><br />
     <button @click="addbook">新增</button>
   </div>
@@ -64,6 +65,12 @@ export default {
         publisher: "",
       },
       Searchbook: "",
+      AddDook:{
+        id: "",
+        bookname: "",
+        author: "",
+        publisher: "",
+      }
     };
   },
   created() {
@@ -96,18 +103,16 @@ export default {
       this.Searchbook = "";
     },
     addbook() {
-      console.log(this.BookList.bookname);
       if (
-        this.BookList.bookname == "" || this.BookList.author == "" || this.BookList.publisher == ""
+        this.AddDook.bookname == "" || this.AddDook.author == "" || this.AddDook.publisher == ""
       ) {
-        console.log(111);
         return alert("内容不能为空");
       }
       this.$axios({
         method: "post",
         url: "/api/addbook",
         data: {
-          ...this.BookList,
+          ...this.AddDook,
         },
       });
       this.$nextTick(()=>{
@@ -124,10 +129,9 @@ export default {
         this.BookList = ele.data.data;
       });
       })
-      this.BookList.bookname = "";
-      this.BookList.author = "";
-      this.BookList.publisher = "";
-      console.log(this.BookList);
+      this.AddDook.bookname = "";
+      this.AddDook.author = "";
+      this.AddDook.publisher = "";
     },
     delbook(id) {
       this.$axios({
@@ -136,7 +140,6 @@ export default {
           id,
         },
       });
-      console.log(this.BookList);
       this.$axios({
         url: "/api/getbooks",
       }).then((ele) => {
