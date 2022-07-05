@@ -129,6 +129,7 @@ export default {
         this.BookList = ele.data.data;
       });
       })
+      alert('添加成功')
       this.AddDook.bookname = "";
       this.AddDook.author = "";
       this.AddDook.publisher = "";
@@ -145,6 +146,7 @@ export default {
       }).then((ele) => {
         this.BookList = ele.data.data;
       });
+      alert('删除成功')
     },
     detailbookfn(id) {
       this.$axios({
