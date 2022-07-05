@@ -1,13 +1,19 @@
 <template>
   <div id="tabbook">
-    <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="date" label="序号" width="180"> </el-table-column>
-      <el-table-column prop="name" label="书名" width="180"> </el-table-column>
-      <el-table-column prop="address" label="作者"> </el-table-column>
-      <el-table-column prop="address" label="出版社"> </el-table-column>
-      <el-table-column prop="address" label="操作">
+    <el-table
+      style="width: 100%"
+      :data="arr"
+      :row-class-name="rouClassNameFn"
+      @row-click="onRowClick"
+    >
+      <el-table-column prop="id" label="序号" width="180"> </el-table-column>
+      <el-table-column prop="bookname" label="书名" width="180">
+      </el-table-column>
+      <el-table-column prop="author" label="作者"> </el-table-column>
+      <el-table-column prop="publisher" label="出版社"> </el-table-column>
+      <el-table-column label="操作">
         <el-button type="success">查看详情</el-button>
-        <el-button type="warning">删除</el-button>
+        <el-button type="warning" @click="onRowClick">删除</el-button>
       </el-table-column>
     </el-table>
   </div>
@@ -15,49 +21,47 @@
 
 <script>
 export default {
-  methods: {
-    handleClick(row) {
-      console.log(row);
-    },
-  },
-
   data() {
     return {
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333,
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1517 弄',
-          zip: 200333,
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1519 弄',
-          zip: 200333,
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1516 弄',
-          zip: 200333,
-        },
-      ],
+      arr: [],
+      // id: '',
     };
+  },
+
+  created() {
+    this.getArr();
+  },
+  methods: {
+    getArr(params = {}) {
+      this.$axios({
+        url: '/api/getbooks',
+        params: params,
+      }).then((res) => {
+        this.arr = res.data.data;
+        // console.log(this.arr);
+      });
+    },
+
+    // Element Ul 的方法  循环的时候把索引号放进去
+    rouClassNameFn({ row, rowIndex }) {
+      //把每一行的索引放进row
+      row.index = rowIndex;
+    }, //拿到索引号
+    onRowClick(row, event, column) {
+      // console.log(row);
+      // console.log(row.id);
+      const id = row.id;
+      // console.log(id);
+      this.$axios({
+        url: '/api/delbook',
+        params: { id },
+      }).then(() => {
+        this.getArr();
+      });
+    },
+    // kkFn() {
+    //   console.log(onRowClick(id));
+    // },
   },
 };
 </script>

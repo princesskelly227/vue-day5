@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SearchBook></SearchBook>
+    <SearchBook @suiji="suijiFn"></SearchBook>
 
     <TableBook></TableBook>
 
@@ -17,15 +17,15 @@ import AddBook from './components/AddBook.vue';
 import TableBook from './components/TableBook.vue';
 
 export default {
-  data() {
-    return {
-      arr: [''],
-    };
-  },
   components: {
     SearchBook,
     TableBook,
     AddBook,
+  },
+  methods: {
+    suijiFn(val) {
+      this.$on(console.log(val));
+    },
   },
 };
 </script>
