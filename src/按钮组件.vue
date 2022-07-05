@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MyButton title="成功按钮" type="success" @myclick='myclickfn'></MyButton>
+    <MyButton v-for="item in list" :key="item" :title="item.button" :type="item.color" @myclick='myclickfn'></MyButton>
   </div>
 </template>
 
@@ -9,6 +9,23 @@ import MyButton from './components/ButtonSubassembly.vue'
 export default {
   data() {
     return {
+      list:[{
+        button:'默认按钮',
+        color:'warning'
+      },
+      {
+        button:'主要按钮',
+        color:'primary'
+      },
+      {
+        button:'成功按钮',
+        color:'success'
+      },
+      {
+        button:'警告按钮',
+        color:'danger'
+      },
+      ]
     };
   },
   methods:{
